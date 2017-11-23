@@ -3,7 +3,7 @@ package c4q.nyc.notesapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class NoteDetail extends AppCompatActivity {
+public class NoteDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

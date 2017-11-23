@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-public class NotesList extends AppCompatActivity {
+public class NotesListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class NotesList extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.add_note_button:
-                Intent intent = new Intent(this, NoteDetail.class);
+                Intent intent = new Intent(this, NoteDetailActivity.class);
                 startActivity(intent);
                 break;
         }
