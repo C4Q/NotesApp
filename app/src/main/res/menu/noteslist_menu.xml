@@ -5,9 +5,7 @@
         android:id="@+id/add_note_button"
         android:title="Add Note"
         app:showAsAction="always"/>
-    <item
-        android:id="@+id/settings_button"
-        android:title="Setting" />
+    <item android:title="Setting" />
 
 
 </menu>

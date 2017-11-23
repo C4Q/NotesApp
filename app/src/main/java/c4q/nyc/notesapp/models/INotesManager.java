@@ -1,5 +1,7 @@
 package c4q.nyc.notesapp.models;
 
+import android.content.Context;
+
 import java.util.Collection;
 
 /**
@@ -43,4 +45,10 @@ public interface INotesManager {
      * @return
      */
     Collection<Note> getNotes();
+
+    /**
+     * Saves note data to non-volatile storage
+     * @param context
+     */
+    void persist(Context context);
 }
