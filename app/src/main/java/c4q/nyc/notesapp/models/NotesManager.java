@@ -1,4 +1,4 @@
-package c4q.nyc.notesapp;
+package c4q.nyc.notesapp.models;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;

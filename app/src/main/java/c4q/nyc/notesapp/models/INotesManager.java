@@ -1,4 +1,4 @@
-package c4q.nyc.notesapp;
+package c4q.nyc.notesapp.models;
 
 import java.util.Collection;
 
