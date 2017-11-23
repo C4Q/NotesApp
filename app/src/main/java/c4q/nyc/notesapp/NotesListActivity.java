@@ -30,6 +30,7 @@ public class NotesListActivity extends AppCompatActivity {
             notesManager = new NotesManager();
         }
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        recyclerView.setHasFixedSize(true);
         NotesListAdapter adapter = new NotesListAdapter(notesManager);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
