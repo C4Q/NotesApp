@@ -1,10 +1,5 @@
 package c4q.nyc.notesapp.models;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -22,15 +17,7 @@ public class NotesManager implements INotesManager {
      */
     public static INotesManager FromFile(String filePath) throws Exception {
         // Read it back
-        JAXBContext readCtx = JAXBContext.newInstance(Note.class);
-        Unmarshaller unmarshaller = readCtx.createUnmarshaller();
-
-        Collection<Note> notesCollection = unmarshaller.unmarshal(new FileReader(filePath));
-
         NotesManager notesManager = new NotesManager();
-        for(Note n: notesCollection) {
-            notesManager.notes.put(n.id, n);
-        }
         return notesManager;
     }
 
@@ -40,14 +27,6 @@ public class NotesManager implements INotesManager {
      * @return boolean
      */
     public static boolean ToFile(INotesManager notesManager, String filePath) throws Exception {
-        JAXBContext ctx = JAXBContext.newInstance(Note.class);
-        Marshaller marshaller = ctx.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-        // write it to a stream
-        FileWriter writer = new FileWriter(filePath);
-        marshaller.marshal(notesManager.getNotes(), writer);
-        writer.close();
         return true;
     }
 

@@ -1,12 +1,12 @@
 package c4q.nyc.notesapp;
 
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import c4q.nyc.notesapp.models.INotesManager;
 import c4q.nyc.notesapp.models.Note;
@@ -33,7 +33,8 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         Note n = notesList.get(position);
-        holder.onBind(n);
+        holder.title.setText(n.title);
+        holder.body.setText(n.body);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
         return notesList.size();
     }
 
-    static class NoteViewHolder extends RecyclerView.ViewHolder {
+    class NoteViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView body;
 
@@ -49,12 +50,6 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.note_item_title);
             body = (TextView) itemView.findViewById(R.id.note_item_body);
-        }
-
-        @Override
-        public void onBind(Note n) {
-            title.setText(n.title);
-            body.setText(n.body);
         }
     }
 }
