@@ -20,7 +20,7 @@ public class NotesManager implements INotesManager {
      * @param filePath
      * @return
      */
-    static INotesManager FromFile(String filePath) throws Exception {
+    public static INotesManager FromFile(String filePath) throws Exception {
         // Read it back
         JAXBContext readCtx = JAXBContext.newInstance(Note.class);
         Unmarshaller unmarshaller = readCtx.createUnmarshaller();
@@ -39,7 +39,7 @@ public class NotesManager implements INotesManager {
      * @param notesManager
      * @return boolean
      */
-    static boolean ToFile(INotesManager notesManager, String filePath) throws Exception {
+    public static boolean ToFile(INotesManager notesManager, String filePath) throws Exception {
         JAXBContext ctx = JAXBContext.newInstance(Note.class);
         Marshaller marshaller = ctx.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
@@ -108,6 +108,7 @@ public class NotesManager implements INotesManager {
 
     @Override
     public Collection<Note> getNotes() {
+        // TODO: sort list by last_modified
         return notes.values();
     }
 }
