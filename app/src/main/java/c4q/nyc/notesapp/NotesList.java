@@ -31,22 +31,4 @@ public class NotesList extends AppCompatActivity {
         }
         return true;
     }
-
-
-    public void launchViewNote() {
-        // launches note detail activity in view mode
-
-    }
-
-    public void launchEditNote() {
-        // opens note detail in edit mode
-    }
-
-    public void deleteNote() {
-        // deletes a note
-    }
-
-    public void archiveNote() {
-
-    }
 }
