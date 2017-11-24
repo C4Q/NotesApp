@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import c4q.nyc.notesapp.models.INotesManager;
 import c4q.nyc.notesapp.models.Note;
 
 /**
@@ -17,11 +16,9 @@ import c4q.nyc.notesapp.models.Note;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder>{
 
-    private INotesManager notesManager;
     private ArrayList<Note> notesList;
-    public NotesListAdapter(INotesManager manager) {
-        notesManager = manager;
-        notesList = new ArrayList<>(notesManager.getNotes());
+    public NotesListAdapter(ArrayList<Note> notes) {
+        notesList = notes;
     }
 
     @Override

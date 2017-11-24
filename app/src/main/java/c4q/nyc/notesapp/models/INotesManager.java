@@ -15,7 +15,7 @@ public interface INotesManager {
      * @param body
      * @return
      */
-    Note addNote(String title, String body);
+    Note createNote(String title, String body);
 
     /**
      * Updates the title and body of Note whose id matches noteId

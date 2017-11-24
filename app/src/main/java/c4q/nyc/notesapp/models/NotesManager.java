@@ -79,7 +79,7 @@ public class NotesManager implements INotesManager {
     }
 
     @Override
-    public Note addNote(String title, String body) {
+    public Note createNote(String title, String body) {
         final Note n = new Note();
         n.id = getNewId();
         n.title = title;

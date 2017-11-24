@@ -6,11 +6,13 @@
     android:orientation="vertical">
 
     <EditText
+        android:id="@+id/edit_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Note Title"
         android:inputType="text" />
     <EditText
+        android:id="@+id/edit_body"
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:hint="Note Button"
@@ -18,6 +20,7 @@
     <Button
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:text="Save Button" />
+        android:text="Save Button"
+        android:onClick="saveAndExit"/>
 
 </LinearLayout>
