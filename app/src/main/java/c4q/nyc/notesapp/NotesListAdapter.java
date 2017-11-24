@@ -35,8 +35,12 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         Note n = notesList.get(position);
         holder.title.setText(n.title);
+        if(n.title.isEmpty())
+            holder.title.setVisibility(View.GONE);
         holder.title.setTag(n.id);
         holder.body.setText(n.body);
+        if(n.body.isEmpty())
+            holder.body.setVisibility(View.GONE);
         holder.itemView.setOnClickListener(listener);
     }
 

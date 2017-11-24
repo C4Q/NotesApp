@@ -45,7 +45,7 @@ public class DataSource implements IDataSource {
         // above failed, use initializer file
         if (notes == null) {
             Log.d(TAG, "Using initializer file resource");
-            InputStream is = context.getResources().openRawResource(R.raw.notes);
+            InputStream is = context.getResources().openRawResource(R.raw.golden);
             InputStreamReader isr = new InputStreamReader(is);
             notes = gs.fromJson(isr, collectionType);
         }

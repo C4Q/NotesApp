@@ -1,0 +1,74 @@
+[
+  {
+    "id": "zzi37FaS2t",
+    "title": "Hello, welcome!",
+    "body": "This is your first note, you can edit it, delete it or archive it",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t1",
+    "title": "Note title",
+    "body": "I am messing with the body",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t3",
+    "title": "",
+    "body": "That's one note without a title, hmmm",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t4",
+    "title": "How about note without body",
+    "body": "",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t5",
+    "title": "This note is supposed to have a long title on purpose, cause I want it to",
+    "body": "And the body should be really really really long and split on multiple lines too.\nAnd the body should be really really really long.\nAnd the body should be really really really long.\nAnd the body should be really really really long.\n",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t6",
+    "title": "Other note",
+    "body": "This is not your first note, but you can edit it, delete it or archive it",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t7",
+    "title": "Swipe me away please",
+    "body": "Yes yes yes!!!",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t8",
+    "title": "Graduation party things",
+    "body": "This should contain a list. * buy lights, * buy ice cream, * send out invites",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  },
+  {
+    "id": "zzi37FaS2t9",
+    "title": "My password for everything",
+    "body": "please don't put your passwords in notes, please!",
+    "dateCreated": 0,
+    "isArchived": false,
+    "lastModified": 0
+  }
+]
