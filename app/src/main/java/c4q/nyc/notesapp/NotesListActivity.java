@@ -68,6 +68,7 @@ public class NotesListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.settings_menu_item:
                 Log.d(TAG, "clicked settings menu");
+                startActivity(new Intent(this, SettingsActivity.class));
                 break;
         }
         return true;

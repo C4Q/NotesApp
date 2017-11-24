@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">NotesApp</string>
+    <string name="pref_accessibility">Accessibility</string>
+    <string name="pref_languages">Language</string>
+    <string name="pref_language">Language</string>
+    <string name="pref_select_language">Select Language</string>
+    <string name="pref_notes_data">Notes Data</string>
+    <string name="pref_delete_old_notes">Delete Old Notes</string>
+    <string name="pref_delete_old_notes_summary">Allow deleting archived notes older than X months</string>
+    <string name="pref_data_source">Data source</string>
+    <string name="pref_select_data_source">Select notes data source</string>
 </resources>
