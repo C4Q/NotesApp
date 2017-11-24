@@ -27,14 +27,13 @@ import c4q.nyc.notesapp.R;
 public class NotesManager implements INotesManager {
     private static final String NOTES_FILE = "notes.json";
     private static final String TAG = "NotesManager";
-    private HashMap<String, Note> notes = new HashMap<>();
 
     /**
      * De-serializes a Notes json file into an INotesManager
      * @param context
      * @return
      */
-    public static INotesManager FromFile(Context context) throws FileNotFoundException {
+    public static ArrayList<Note> FromFile(Context context) throws FileNotFoundException {
         Type collectionType = new TypeToken<Collection<Note>>() {}.getType();
         Gson gs = new Gson();
         Collection<Note> notes = null;
@@ -57,22 +56,18 @@ public class NotesManager implements INotesManager {
             notes = new ArrayList<>();
         }
 
-        NotesManager notesManager = new NotesManager();
-        for(Note n: notes) {
-            notesManager.notes.put(n.id, n);
-        }
-        return notesManager;
+        return new ArrayList<>(notes);
     }
 
     /**
      * Serializes a notes to a json file
      * @Param context
      */
-    public void persist(Context context) {
+    public void persist(Context context, ArrayList<Note> notesList) {
         try {
             FileOutputStream fos = context.openFileOutput(NOTES_FILE, Context.MODE_PRIVATE);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
-            new Gson().toJson(getNotes(), writer);
+            new Gson().toJson(notesList, writer);
         } catch (IOException e) {
             Log.e(TAG, e.toString());
         }
@@ -86,7 +81,6 @@ public class NotesManager implements INotesManager {
         n.body = body;
         n.dateCreated = 0l;
         n.lastModified = n.dateCreated;
-        notes.put(n.id, n);
         return n;
     }
 
@@ -100,42 +94,6 @@ public class NotesManager implements INotesManager {
             int index = (int) (Math.random() * alphaNum.length());
             sb.append(alphaNum.charAt(index));
         }
-
-        if(notes.containsKey(sb.toString()))
-            return getNewId();
-
         return sb.toString();
-    }
-
-    @Override
-    public Note updateNote(String noteId, String title, String body) {
-        Note n = notes.get(noteId);
-        n.title = title;
-        n.body = body;
-        return n;
-    }
-
-    @Override
-    public boolean deleteNote(String noteId) {
-        if(!notes.containsKey(noteId))
-            return false;
-
-        notes.remove(noteId);
-        return true;
-    }
-
-    @Override
-    public boolean archiveNote(String noteId) {
-        if(!notes.containsKey(noteId)) return false;
-
-        Note n = notes.get(noteId);
-        n.isArchived = true;
-        return true;
-    }
-
-    @Override
-    public Collection<Note> getNotes() {
-        // TODO: sort list by last_modified
-        return notes.values();
     }
 }

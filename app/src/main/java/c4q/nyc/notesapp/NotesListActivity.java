@@ -30,16 +30,15 @@ public class NotesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
+        notesManager = new NotesManager();
         try {
-            notesManager = NotesManager.FromFile(this);
+            notesList = NotesManager.FromFile(this);
         } catch (Exception e) {
-            Log.d(TAG, "Failed to initialize notes manager from file. Using default constructor");
-            notesManager = new NotesManager();
+            Log.d(TAG, "Failed to initialize notes list from file. Using default constructor");
+            notesList = new ArrayList<>();
         }
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-
-        notesList = new ArrayList<>(notesManager.getNotes());
         adapter = new NotesListAdapter(notesList);
         recyclerView.setAdapter(adapter);
 
@@ -78,6 +77,6 @@ public class NotesListActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         // save all notes to non-volatile storage
-        notesManager.persist(this);
+        notesManager.persist(this, notesList);
     }
 }

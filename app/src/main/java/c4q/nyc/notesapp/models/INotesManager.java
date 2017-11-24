@@ -2,6 +2,7 @@ package c4q.nyc.notesapp.models;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -17,38 +18,11 @@ public interface INotesManager {
      */
     Note createNote(String title, String body);
 
-    /**
-     * Updates the title and body of Note whose id matches noteId
-     * @param noteId
-     * @param title
-     * @param body
-     * @return
-     */
-    Note updateNote(String noteId, String title, String body);
-
-    /**
-     * Returns true if successfully deletes the note with the given noteId
-     * @param noteId
-     * @return
-     */
-    boolean deleteNote(String noteId);
-
-    /**
-     * Returns true if successfully archived note with the given noteId
-     * @param noteId
-     * @return
-     */
-    boolean archiveNote(String noteId);
-
-    /**
-     * Returns all the Notes
-     * @return
-     */
-    Collection<Note> getNotes();
 
     /**
      * Saves note data to non-volatile storage
      * @param context
+     * @param notesList
      */
-    void persist(Context context);
+    void persist(Context context, ArrayList<Note> notesList);
 }
