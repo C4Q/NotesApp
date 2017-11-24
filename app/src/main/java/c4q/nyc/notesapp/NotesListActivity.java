@@ -66,8 +66,8 @@ public class NotesListActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add_note_button:
-                startActivityForNewNote(null);
+            case R.id.settings_menu_item:
+                Log.d(TAG, "clicked settings menu");
                 break;
         }
         return true;

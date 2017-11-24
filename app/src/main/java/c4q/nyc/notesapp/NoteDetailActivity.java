@@ -34,12 +34,6 @@ public class NoteDetailActivity extends AppCompatActivity {
         saveAndExit(null);
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        saveAndExit(null);
-    }
-
     // Save button click handler
     public void saveAndExit(View view) {
         Intent data = new Intent();
