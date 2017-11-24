@@ -16,9 +16,12 @@ import c4q.nyc.notesapp.models.Note;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder>{
 
+    private final String TAG = getClass().getName();
     private ArrayList<Note> notesList;
-    public NotesListAdapter(ArrayList<Note> notes) {
+    private View.OnClickListener listener;
+    public NotesListAdapter(ArrayList<Note> notes, View.OnClickListener listener) {
         notesList = notes;
+        this.listener = listener;
     }
 
     @Override
@@ -31,7 +34,9 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         Note n = notesList.get(position);
         holder.title.setText(n.title);
+        holder.title.setTag(n.id);
         holder.body.setText(n.body);
+        holder.itemView.setOnClickListener(listener);
     }
 
     @Override
