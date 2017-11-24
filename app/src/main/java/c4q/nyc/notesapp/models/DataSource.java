@@ -28,15 +28,19 @@ public class DataSource implements IDataSource {
     private static final String TAG = "DataSource";
 
 
-    public ArrayList<Note> getData(Context context) throws FileNotFoundException {
+    public ArrayList<Note> getData(Context context) {
         Type collectionType = new TypeToken<Collection<Note>>() {
         }.getType();
         Gson gs = new Gson();
         Collection<Note> notes = null;
 
         // try to load the data file (where we save to)
-        FileInputStream fis = context.openFileInput(NOTES_FILE);
-        notes = gs.fromJson(new InputStreamReader(fis), collectionType);
+        try {
+            FileInputStream fis = context.openFileInput(NOTES_FILE);
+            notes = gs.fromJson(new InputStreamReader(fis), collectionType);
+        }catch (FileNotFoundException e) {
+            Log.d(TAG, e.getMessage());
+        }
 
         // above failed, use initializer file
         if (notes == null) {

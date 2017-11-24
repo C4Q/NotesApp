@@ -24,16 +24,9 @@ public class NoteDetailActivity extends AppCompatActivity {
         editTitle = (EditText) findViewById(R.id.edit_title);
         editBody = (EditText) findViewById(R.id.edit_body);
 
-        if (getIntent().hasExtra(NOTE_TITLE)) {
-            editTitle.setText(getIntent().getStringExtra(NOTE_TITLE));
-        }
-        if (getIntent().hasExtra(NOTE_BODY)) {
-            editBody.setText(getIntent().getStringExtra(NOTE_BODY));
-        }
-        if (getIntent().hasExtra(NOTE_ID)) {
-            noteId = getIntent().getStringExtra(NOTE_ID);
-        }
-
+        editTitle.setText(getIntent().getStringExtra(NOTE_TITLE));
+        editBody.setText(getIntent().getStringExtra(NOTE_BODY));
+        noteId = getIntent().getStringExtra(NOTE_ID);
     }
 
     @Override
@@ -59,7 +52,6 @@ public class NoteDetailActivity extends AppCompatActivity {
         } else {
             getParent().setResult(Activity.RESULT_OK, data);
         }
-
         finish();
     }
 }

@@ -33,5 +33,5 @@ public interface IDataSource {
      * @param context
      * @return
      */
-    ArrayList<Note> getData(Context context) throws Exception;
+    ArrayList<Note> getData(Context context);
 }

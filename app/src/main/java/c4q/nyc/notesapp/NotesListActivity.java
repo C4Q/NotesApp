@@ -24,7 +24,11 @@ public class NotesListActivity extends AppCompatActivity {
     private static final int EDIT_NOTE_REQUEST_CODE = 999;
     private static final int NEW_NOTE_REQUEST_CODE = 888;
     private final String TAG = getClass().getName();
-    View.OnClickListener recyclerOnClickListener = new View.OnClickListener() {
+    private RecyclerView recyclerView;
+    private IDataSource dataSource;
+    private NotesListAdapter adapter;
+    private ArrayList<Note> notesList;
+    private View.OnClickListener recyclerOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             TextView title = v.findViewById(R.id.note_item_title);
@@ -38,30 +42,18 @@ public class NotesListActivity extends AppCompatActivity {
             startActivityForResult(i, EDIT_NOTE_REQUEST_CODE);
         }
     };
-    private RecyclerView recyclerView;
-    private IDataSource dataSource;
-    private NotesListAdapter adapter;
-    private ArrayList<Note> notesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
         dataSource = new DataSource();
-        try {
-            notesList = dataSource.getData(this);
-        } catch (Exception e) {
-            Log.d(TAG, "Failed to initialize notes list from file. Using default constructor");
-            notesList = new ArrayList<>();
-        }
+        notesList = dataSource.getData(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         adapter = new NotesListAdapter(notesList, recyclerOnClickListener);
         recyclerView.setAdapter(adapter);
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-
     }
 
     @Override
