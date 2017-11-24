@@ -13,16 +13,16 @@ import android.view.MenuItem;
 
 import java.util.ArrayList;
 
-import c4q.nyc.notesapp.models.INotesManager;
+import c4q.nyc.notesapp.models.DataSource;
+import c4q.nyc.notesapp.models.IDataSource;
 import c4q.nyc.notesapp.models.Note;
-import c4q.nyc.notesapp.models.NotesManager;
 
 public class NotesListActivity extends AppCompatActivity {
 
     private final String TAG = getClass().getName();
     private RecyclerView recyclerView;
     public static final int NEW_NOTE_REQUEST_CODE = 888;
-    INotesManager notesManager;
+    IDataSource dataSource;
     NotesListAdapter adapter;
     ArrayList<Note> notesList;
 
@@ -30,9 +30,9 @@ public class NotesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
-        notesManager = new NotesManager();
+        dataSource = new DataSource();
         try {
-            notesList = NotesManager.FromFile(this);
+            notesList = dataSource.getData(this);
         } catch (Exception e) {
             Log.d(TAG, "Failed to initialize notes list from file. Using default constructor");
             notesList = new ArrayList<>();
@@ -68,7 +68,7 @@ public class NotesListActivity extends AppCompatActivity {
         if (requestCode == NEW_NOTE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String title = data.getStringExtra(NoteDetailActivity.NOTE_TITLE);
             String body = data.getStringExtra(NoteDetailActivity.NOTE_BODY);
-            notesList.add(notesManager.createNote(title, body));
+            notesList.add(dataSource.createNote(title, body));
             adapter.notifyDataSetChanged();
         }
     }
@@ -77,6 +77,6 @@ public class NotesListActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         // save all notes to non-volatile storage
-        notesManager.persist(this, notesList);
+        dataSource.persist(this, notesList);
     }
 }

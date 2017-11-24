@@ -16,24 +16,19 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 import c4q.nyc.notesapp.R;
 
 /**
- * Implements INotesManager using HashMap as underlying storage
+ * Implements IDataSource using HashMap as underlying storage
  */
 
-public class NotesManager implements INotesManager {
+public class DataSource implements IDataSource {
     private static final String NOTES_FILE = "notes.json";
-    private static final String TAG = "NotesManager";
+    private static final String TAG = "DataSource";
 
-    /**
-     * De-serializes a Notes json file into an INotesManager
-     * @param context
-     * @return
-     */
-    public static ArrayList<Note> FromFile(Context context) throws FileNotFoundException {
+
+    public ArrayList<Note> getData(Context context) throws FileNotFoundException {
         Type collectionType = new TypeToken<Collection<Note>>() {}.getType();
         Gson gs = new Gson();
         Collection<Note> notes = null;
