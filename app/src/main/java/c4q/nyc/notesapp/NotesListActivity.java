@@ -60,12 +60,17 @@ public class NotesListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.add_note_button:
-                Intent intent = new Intent(this, NoteDetailActivity.class);
-                startActivityForResult(intent, NEW_NOTE_REQUEST_CODE);
+                startActivityForNewNote(null);
                 break;
         }
         return true;
     }
+
+    public void startActivityForNewNote(View v) {
+        Intent intent = new Intent(this, NoteDetailActivity.class);
+        startActivityForResult(intent, NEW_NOTE_REQUEST_CODE);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == NEW_NOTE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
