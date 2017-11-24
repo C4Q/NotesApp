@@ -2,8 +2,8 @@ package c4q.nyc.notesapp;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
@@ -24,13 +24,13 @@ public class NoteDetailActivity extends AppCompatActivity {
         editTitle = (EditText) findViewById(R.id.edit_title);
         editBody = (EditText) findViewById(R.id.edit_body);
 
-        if(getIntent().hasExtra(NOTE_TITLE)) {
+        if (getIntent().hasExtra(NOTE_TITLE)) {
             editTitle.setText(getIntent().getStringExtra(NOTE_TITLE));
         }
-        if(getIntent().hasExtra(NOTE_BODY)) {
+        if (getIntent().hasExtra(NOTE_BODY)) {
             editBody.setText(getIntent().getStringExtra(NOTE_BODY));
         }
-        if(getIntent().hasExtra(NOTE_ID)) {
+        if (getIntent().hasExtra(NOTE_ID)) {
             noteId = getIntent().getStringExtra(NOTE_ID);
         }
 

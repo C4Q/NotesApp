@@ -29,7 +29,8 @@ public class DataSource implements IDataSource {
 
 
     public ArrayList<Note> getData(Context context) throws FileNotFoundException {
-        Type collectionType = new TypeToken<Collection<Note>>() {}.getType();
+        Type collectionType = new TypeToken<Collection<Note>>() {
+        }.getType();
         Gson gs = new Gson();
         Collection<Note> notes = null;
 
@@ -46,7 +47,7 @@ public class DataSource implements IDataSource {
         }
 
         // above two failed, use empty list
-        if(notes == null) {
+        if (notes == null) {
             Log.d(TAG, "No data was loaded from any storage, initializing empty notes manager");
             notes = new ArrayList<>();
         }
@@ -56,6 +57,7 @@ public class DataSource implements IDataSource {
 
     /**
      * Serializes a notes to a json file
+     *
      * @Param context
      */
     public void persist(Context context, ArrayList<Note> notesList) {
@@ -85,7 +87,7 @@ public class DataSource implements IDataSource {
     private String getNewId() {
         final String alphaNum = "abcdefghijklmnopqrstuvwzyz1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             int index = (int) (Math.random() * alphaNum.length());
             sb.append(alphaNum.charAt(index));
         }

@@ -14,11 +14,12 @@ import c4q.nyc.notesapp.models.Note;
  * Created by justiceo on 11/23/17.
  */
 
-public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder>{
+public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder> {
 
     private final String TAG = getClass().getName();
     private ArrayList<Note> notesList;
     private View.OnClickListener listener;
+
     public NotesListAdapter(ArrayList<Note> notes, View.OnClickListener listener) {
         notesList = notes;
         this.listener = listener;
