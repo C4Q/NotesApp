@@ -1,40 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="@string/pref_accessibility"
-        android:key="pref_key_storage_settings">
+        android:key="pref_key_storage_settings"
+        android:title="@string/pref_accessibility">
         <CheckBoxPreference
+            android:defaultValue="false"
             android:key="pref_key_auto_font_sizing"
             android:summary="Hello description here"
-            android:title="Title"
-            android:defaultValue="false" />
+            android:title="Title" />
 
         <ListPreference
-            android:key="pref_key_languages"
-            android:title="@string/pref_language"
-            android:summary="Change the default app language"
+            android:defaultValue="1"
             android:dialogTitle="@string/pref_select_language"
             android:entries="@array/pref_language_options"
             android:entryValues="@array/pref_language_options_values"
-            android:defaultValue="1" />
+            android:key="pref_key_languages"
+            android:summary="Change the default app language"
+            android:title="@string/pref_language" />
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/pref_notes_data"
-        android:key="pref_key_notes_data">
+        android:key="pref_key_notes_data"
+        android:title="@string/pref_notes_data">
 
         <CheckBoxPreference
             android:key="pref_key_delete_old_notes"
-            android:title="@string/pref_delete_old_notes"
-            android:summary="@string/pref_delete_old_notes_summary" />
+            android:summary="@string/pref_delete_old_notes_summary"
+            android:title="@string/pref_delete_old_notes" />
 
         <ListPreference
-            android:key="pref_key_data_sources"
-            android:title="@string/pref_data_source"
-            android:summary="Choose notes data source"
+            android:defaultValue="1"
             android:dialogTitle="@string/pref_select_data_source"
             android:entries="@array/pref_data_sources"
             android:entryValues="@array/pref_data_sources_values"
-            android:defaultValue="1" />
+            android:key="pref_key_data_sources"
+            android:summary="Choose notes data source"
+            android:title="@string/pref_data_source" />
     </PreferenceCategory>
 </PreferenceScreen>
