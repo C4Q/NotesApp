@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import c4q.nyc.notesapp.models.DataSource;
 import c4q.nyc.notesapp.models.IDataSource;
-import c4q.nyc.notesapp.models.Note;
 
 public class NotesListActivity extends AppCompatActivity {
 
@@ -76,27 +75,8 @@ public class NotesListActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == NEW_NOTE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String title = data.getStringExtra(NoteDetailActivity.NOTE_TITLE);
-            String body = data.getStringExtra(NoteDetailActivity.NOTE_BODY);
-            dataSource.add(dataSource.createNote(title, body));
-            adapter.notifyDataSetChanged();
-        }
-
-        if (requestCode == EDIT_NOTE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-            String id = data.getStringExtra(NoteDetailActivity.NOTE_ID);
-            String title = data.getStringExtra(NoteDetailActivity.NOTE_TITLE);
-            String body = data.getStringExtra(NoteDetailActivity.NOTE_BODY);
-            // find the note and update it
-            for (int i = 0; i < dataSource.size(); i++) {
-                Note n = dataSource.get(i);
-                if (n.id.equals(id)) {
-                    n.title = title;
-                    n.body = body;
-                    n.lastModified++;
-                    break;
-                }
-            }
+        if (resultCode == Activity.RESULT_OK &&
+                (requestCode == NEW_NOTE_REQUEST_CODE || requestCode == EDIT_NOTE_REQUEST_CODE)) {
             adapter.notifyDataSetChanged();
         }
     }

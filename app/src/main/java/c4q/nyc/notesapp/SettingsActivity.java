@@ -1,8 +1,7 @@
 package c4q.nyc.notesapp;
 
-import android.preference.PreferenceActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 
 /**
  * SettingsActivity automatically generates settings UI from preference resource.

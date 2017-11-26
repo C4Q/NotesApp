@@ -28,7 +28,8 @@ public class DataSource extends ArrayList<Note> implements IDataSource {
     private static final String TAG = "DataSource";
     private static DataSource dataSource;
 
-    private DataSource() {}
+    private DataSource() {
+    }
 
     public static IDataSource getInstance(Context context) {
         if (dataSource != null) {
@@ -44,7 +45,7 @@ public class DataSource extends ArrayList<Note> implements IDataSource {
         try {
             FileInputStream fis = context.openFileInput(NOTES_FILE);
             notes = gs.fromJson(new InputStreamReader(fis), collectionType);
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             Log.d(TAG, e.getMessage());
         }
 
@@ -83,15 +84,30 @@ public class DataSource extends ArrayList<Note> implements IDataSource {
     }
 
     @Override
-    public Note createNote(String title, String body) {
+    public Note addNote(String title, String body) {
         final Note n = new Note();
         n.id = getNewId();
         n.title = title;
         n.body = body;
         n.dateCreated = 0l;
         n.lastModified = n.dateCreated;
+        add(n);
         return n;
     }
+
+    @Override
+    public Note updateNote(String noteId, String title, String body) {
+        for (Note n : this) {
+            if (n.id.equals(noteId)) {
+                n.title = title;
+                n.body = body;
+                n.lastModified++;
+                return n;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * getNewId returns a short string that is unique in notes keyset

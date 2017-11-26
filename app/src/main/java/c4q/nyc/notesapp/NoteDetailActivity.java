@@ -1,17 +1,20 @@
 package c4q.nyc.notesapp;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+
+import c4q.nyc.notesapp.models.DataSource;
+import c4q.nyc.notesapp.models.IDataSource;
 
 public class NoteDetailActivity extends AppCompatActivity {
 
     public static final String NOTE_TITLE = "note_title";
     public static final String NOTE_BODY = "note_body";
     public static final String NOTE_ID = "note_id";
+    private static IDataSource dataSource;
     private String noteId;
     private EditText editTitle;
     private EditText editBody;
@@ -20,6 +23,8 @@ public class NoteDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
+
+        dataSource = DataSource.getInstance(this);
 
         editTitle = (EditText) findViewById(R.id.edit_title);
         editBody = (EditText) findViewById(R.id.edit_body);
@@ -36,15 +41,19 @@ public class NoteDetailActivity extends AppCompatActivity {
 
     // Save button click handler
     public void saveAndExit(View view) {
-        Intent data = new Intent();
-        data.putExtra(NOTE_ID, noteId);
-        data.putExtra(NOTE_TITLE, editTitle.getText().toString());
-        data.putExtra(NOTE_BODY, editBody.getText().toString());
+        String title = editTitle.getText().toString();
+        String body = editBody.getText().toString();
+
+        if (noteId != null && !noteId.isEmpty()) {
+            dataSource.updateNote(noteId, title, body);
+        } else {
+            dataSource.addNote(title, body);
+        }
 
         if (getParent() == null) {
-            setResult(Activity.RESULT_OK, data);
+            setResult(Activity.RESULT_OK);
         } else {
-            getParent().setResult(Activity.RESULT_OK, data);
+            getParent().setResult(Activity.RESULT_OK);
         }
         finish();
     }

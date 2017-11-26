@@ -16,13 +16,24 @@ public interface IDataSource extends List<Note> {
      * @param body
      * @return
      */
-    Note createNote(String title, String body);
+    Note addNote(String title, String body);
 
+    /**
+     * Updates the note with the given id
+     *
+     * @param noteId
+     * @param title
+     * @param body
+     * @return
+     */
+    Note updateNote(String noteId, String title, String body);
 
     /**
      * Saves note data to non-volatile storage
-     *  @param context
+     *
+     * @param context
      * @param dataSource
      */
     void persist(Context context, IDataSource dataSource);
+
 }

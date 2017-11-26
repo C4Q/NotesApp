@@ -6,8 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import c4q.nyc.notesapp.models.IDataSource;
 import c4q.nyc.notesapp.models.Note;
 
@@ -16,8 +14,6 @@ import c4q.nyc.notesapp.models.Note;
  */
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder> {
-
-    private final String TAG = getClass().getName();
     private IDataSource notesList;
     private View.OnClickListener listener;
 
@@ -35,13 +31,19 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
     @Override
     public void onBindViewHolder(NoteViewHolder holder, int position) {
         Note n = notesList.get(position);
-        holder.title.setText(n.title);
-        if(n.title.isEmpty())
+        if (n.title.isEmpty()) {
             holder.title.setVisibility(View.GONE);
-        holder.title.setTag(n.id);
-        holder.body.setText(n.body);
-        if(n.body.isEmpty())
+        } else {
+            holder.title.setText(n.title);
+            holder.title.setVisibility(View.VISIBLE);
+        }
+        if (n.body.isEmpty()) {
             holder.body.setVisibility(View.GONE);
+        } else {
+            holder.body.setText(n.body);
+            holder.body.setVisibility(View.VISIBLE);
+        }
+        holder.title.setTag(n.id);
         holder.itemView.setOnClickListener(listener);
     }
 
