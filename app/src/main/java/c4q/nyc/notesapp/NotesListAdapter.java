@@ -15,11 +15,13 @@ import c4q.nyc.notesapp.models.Note;
 
 public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.NoteViewHolder> {
     private IDataSource notesList;
-    private View.OnClickListener listener;
+    private View.OnClickListener clickListener;
+    private View.OnLongClickListener longClickListener;
 
-    public NotesListAdapter(IDataSource notes, View.OnClickListener listener) {
+    public NotesListAdapter(IDataSource notes, View.OnClickListener clickListener, View.OnLongClickListener longClickListener) {
         notesList = notes;
-        this.listener = listener;
+        this.clickListener = clickListener;
+        this.longClickListener = longClickListener;
     }
 
     @Override
@@ -44,7 +46,8 @@ public class NotesListAdapter extends RecyclerView.Adapter<NotesListAdapter.Note
             holder.body.setVisibility(View.VISIBLE);
         }
         holder.title.setTag(n.id);
-        holder.itemView.setOnClickListener(listener);
+        holder.itemView.setOnClickListener(clickListener);
+        holder.itemView.setOnLongClickListener(longClickListener);
     }
 
     @Override
