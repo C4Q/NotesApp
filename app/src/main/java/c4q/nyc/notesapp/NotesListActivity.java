@@ -28,18 +28,25 @@ public class NotesListActivity extends AppCompatActivity {
     private IDataSource dataSource;
     private NotesListAdapter adapter;
     private LinkedList<View> selectedViews = new LinkedList<>();
-    private ActionMode mActionMode;
+    private ActionMode multiSelectMode;
+
+    /**
+     * Handles onClick event for an item (ViewHolder) in the recycler view.
+     * - When the list is in contextual action mode (multi-selecting), clicking just selects the item
+     * - otherwise, clicking would build a new intent and open the NoteDetailActivity
+     * WARNING: this is a hack - it works for trivial amount of data and test cases, but this is RecyclerView!
+     * - The selected view is not guaranteed to hold the same data after you've scrolled past it
+     * - And I should be keeping a list of selected ids, not views. But like I said, it's just a hack... that you can improve
+     */
     private View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if (mActionMode != null) {
-                Log.e(TAG, "selecting this item");
+            if (multiSelectMode != null) {
                 v.findViewById(R.id.note_item_wrapper).setBackgroundColor(getResources().getColor(R.color.light_blue));
                 selectedViews.add(v);
                 return;
             }
 
-            Log.e(TAG, "normal click");
             TextView title = v.findViewById(R.id.note_item_title);
             String id = (String) title.getTag();
             TextView body = v.findViewById(R.id.note_item_body);
@@ -80,20 +87,26 @@ public class NotesListActivity extends AppCompatActivity {
             for (View v : selectedViews) {
                 v.findViewById(R.id.note_item_wrapper).setBackgroundColor(getResources().getColor(R.color.white));
             }
-            mActionMode = null;
+            multiSelectMode = null;
         }
     };
+
+    /**
+     * Handles long-pressing on a note item (ViewHolder) in the recycler view
+     * - it basically enables multi-select mode
+     */
     private View.OnLongClickListener onLongClickListener = new View.OnLongClickListener() {
         @Override
         public boolean onLongClick(View v) {
-            Log.e(TAG, "long click fired");
-            if (mActionMode != null) { // action mode already enabled
+            // action mode already enabled, do nothing / translate to click
+            if (multiSelectMode != null) {
                 return false;
             }
 
-            mActionMode = startActionMode(mActionModeCallback);
+            multiSelectMode = startActionMode(mActionModeCallback);
             v.setSelected(true);
-            return false; // it should be true, but we're returning false so this item gets "clicked" to update background color
+            // normally we should return true, but we're returning false here so this item gets "clicked" to update background color
+            return false;
         }
     };
 
@@ -110,7 +123,7 @@ public class NotesListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.noteslist_contextual_action_mode_menu, menu);
+        inflater.inflate(R.menu.noteslist_options_menu, menu);
         return true;
     }
 
