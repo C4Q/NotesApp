@@ -13,8 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import c4q.nyc.notesapp.models.DataSource;
 import c4q.nyc.notesapp.models.IDataSource;
 import c4q.nyc.notesapp.models.Note;
@@ -27,7 +25,6 @@ public class NotesListActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private IDataSource dataSource;
     private NotesListAdapter adapter;
-    private ArrayList<Note> notesList;
     private View.OnClickListener recyclerOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -47,11 +44,9 @@ public class NotesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
-        dataSource = new DataSource();
-        notesList = dataSource.getData(this);
+        dataSource = DataSource.getInstance(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        adapter = new NotesListAdapter(notesList, recyclerOnClickListener);
+        adapter = new NotesListAdapter(dataSource, recyclerOnClickListener);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -84,7 +79,7 @@ public class NotesListActivity extends AppCompatActivity {
         if (requestCode == NEW_NOTE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             String title = data.getStringExtra(NoteDetailActivity.NOTE_TITLE);
             String body = data.getStringExtra(NoteDetailActivity.NOTE_BODY);
-            notesList.add(dataSource.createNote(title, body));
+            dataSource.add(dataSource.createNote(title, body));
             adapter.notifyDataSetChanged();
         }
 
@@ -93,8 +88,8 @@ public class NotesListActivity extends AppCompatActivity {
             String title = data.getStringExtra(NoteDetailActivity.NOTE_TITLE);
             String body = data.getStringExtra(NoteDetailActivity.NOTE_BODY);
             // find the note and update it
-            for (int i = 0; i < notesList.size(); i++) {
-                Note n = notesList.get(i);
+            for (int i = 0; i < dataSource.size(); i++) {
+                Note n = dataSource.get(i);
                 if (n.id.equals(id)) {
                     n.title = title;
                     n.body = body;
@@ -110,6 +105,6 @@ public class NotesListActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         // save all notes to non-volatile storage
-        dataSource.persist(this, notesList);
+        dataSource.persist(this, dataSource);
     }
 }

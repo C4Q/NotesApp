@@ -23,12 +23,18 @@ import c4q.nyc.notesapp.R;
  * Implements IDataSource using HashMap as underlying storage
  */
 
-public class DataSource implements IDataSource {
+public class DataSource extends ArrayList<Note> implements IDataSource {
     private static final String NOTES_FILE = "notes.json";
     private static final String TAG = "DataSource";
+    private static DataSource dataSource;
 
+    private DataSource() {}
 
-    public ArrayList<Note> getData(Context context) {
+    public static IDataSource getInstance(Context context) {
+        if (dataSource != null) {
+            return dataSource;
+        }
+
         Type collectionType = new TypeToken<Collection<Note>>() {
         }.getType();
         Gson gs = new Gson();
@@ -56,7 +62,9 @@ public class DataSource implements IDataSource {
             notes = new ArrayList<>();
         }
 
-        return new ArrayList<>(notes);
+        dataSource = new DataSource();
+        dataSource.addAll(notes);
+        return dataSource;
     }
 
     /**
@@ -64,11 +72,11 @@ public class DataSource implements IDataSource {
      *
      * @Param context
      */
-    public void persist(Context context, ArrayList<Note> notesList) {
+    public void persist(Context context, IDataSource dataSource) {
         try {
             FileOutputStream fos = context.openFileOutput(NOTES_FILE, Context.MODE_PRIVATE);
             OutputStreamWriter writer = new OutputStreamWriter(fos);
-            new Gson().toJson(notesList, writer);
+            new Gson().toJson(dataSource, writer);
         } catch (IOException e) {
             Log.e(TAG, e.toString());
         }
