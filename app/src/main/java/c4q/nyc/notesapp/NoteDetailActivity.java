@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 
-import c4q.nyc.notesapp.models.DataSource;
+import c4q.nyc.notesapp.models.FileDataSource;
 import c4q.nyc.notesapp.models.IDataSource;
 
 public class NoteDetailActivity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class NoteDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
 
-        dataSource = DataSource.getInstance(this);
+        dataSource = FileDataSource.getInstance(this);
 
         editTitle = (EditText) findViewById(R.id.edit_title);
         editBody = (EditText) findViewById(R.id.edit_body);

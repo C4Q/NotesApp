@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import java.util.LinkedList;
 
-import c4q.nyc.notesapp.models.DataSource;
+import c4q.nyc.notesapp.models.FileDataSource;
 import c4q.nyc.notesapp.models.IDataSource;
 
 public class NotesListActivity extends AppCompatActivity {
@@ -113,7 +113,7 @@ public class NotesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
-        dataSource = DataSource.getInstance(this);
+        dataSource = FileDataSource.getInstance(this);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         adapter = new NotesListAdapter(dataSource, onClickListener, onLongClickListener);
         recyclerView.setAdapter(adapter);

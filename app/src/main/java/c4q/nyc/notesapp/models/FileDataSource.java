@@ -23,12 +23,12 @@ import c4q.nyc.notesapp.R;
  * Implements IDataSource using HashMap as underlying storage
  */
 
-public class DataSource extends ArrayList<Note> implements IDataSource {
+public class FileDataSource extends ArrayList<Note> implements IDataSource {
     private static final String NOTES_FILE = "notes.json";
-    private static final String TAG = "DataSource";
-    private static DataSource dataSource;
+    private static final String TAG = "FileDataSource";
+    private static FileDataSource dataSource;
 
-    private DataSource() {
+    private FileDataSource() {
     }
 
     public static IDataSource getInstance(Context context) {
@@ -63,7 +63,7 @@ public class DataSource extends ArrayList<Note> implements IDataSource {
             notes = new ArrayList<>();
         }
 
-        dataSource = new DataSource();
+        dataSource = new FileDataSource();
         dataSource.addAll(notes);
         return dataSource;
     }
