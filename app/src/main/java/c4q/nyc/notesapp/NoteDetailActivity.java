@@ -24,7 +24,11 @@ public class NoteDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_detail);
 
-        dataSource = SharedPrefDataSource.getInstance(this);
+        if (NotesListActivity.DataSource != null) {
+            dataSource = NotesListActivity.DataSource;
+        } else {
+            dataSource = SharedPrefDataSource.getInstance(this);
+        }
 
         editTitle = (EditText) findViewById(R.id.edit_title);
         editBody = (EditText) findViewById(R.id.edit_body);

@@ -33,6 +33,13 @@ public class SharedPrefDataSource extends IDataSource {
             return dataSource;
         }
 
+        // let's pretend we're reading lot's of data on an archaic smartphone
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Type collectionType = new TypeToken<Collection<Note>>() {
         }.getType();
         Gson gs = new Gson();

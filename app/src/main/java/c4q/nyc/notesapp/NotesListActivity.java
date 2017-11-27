@@ -1,7 +1,9 @@
 package c4q.nyc.notesapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,9 +25,9 @@ public class NotesListActivity extends AppCompatActivity {
 
     private static final int EDIT_NOTE_REQUEST_CODE = 999;
     private static final int NEW_NOTE_REQUEST_CODE = 888;
+    protected static IDataSource DataSource;
     private final String TAG = getClass().getName();
     private RecyclerView recyclerView;
-    private IDataSource dataSource;
     private NotesListAdapter adapter;
     private LinkedList<View> selectedViews = new LinkedList<>();
     private ActionMode multiSelectMode;
@@ -113,11 +115,41 @@ public class NotesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_list);
-        dataSource = SharedPrefDataSource.getInstance(this);
+        Context context = this;
+        DataSource = SharedPrefDataSource.getInstance(context);
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-        adapter = new NotesListAdapter(dataSource, onClickListener, onLongClickListener);
+        adapter = new NotesListAdapter(DataSource, onClickListener, onLongClickListener);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+
+    }
+
+    protected void onCreateAsync(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_notes_list);
+
+        AsyncTask<Context, Void, Void> load = new AsyncTask<Context, Void, Void>() {
+
+            Context context;
+
+            @Override
+            protected Void doInBackground(Context... contexts) {
+                context = contexts[0];
+                DataSource = SharedPrefDataSource.getInstance(context);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+                adapter = new NotesListAdapter(DataSource, onClickListener, onLongClickListener);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+        };
+
+        load.execute(this);
+
     }
 
     @Override
@@ -155,6 +187,6 @@ public class NotesListActivity extends AppCompatActivity {
     public void onDestroy() {
         super.onDestroy();
         // save all notes to non-volatile storage
-        dataSource.persist(this, dataSource);
+        DataSource.persist(this, DataSource);
     }
 }

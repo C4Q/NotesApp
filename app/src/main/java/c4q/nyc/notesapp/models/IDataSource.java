@@ -3,7 +3,6 @@ package c4q.nyc.notesapp.models;
 import android.content.Context;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * IDataSource describes the commons operations for managing a Notes data store.
